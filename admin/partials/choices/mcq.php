@@ -24,6 +24,7 @@
                             <tr>
                                 <th>Option</th>
                                 <th>Answer</th>
+                                <th>Remove</th>
                             </tr>
                             <tr>
                                 <td>
@@ -31,6 +32,9 @@
                                 </td>
                                 <td>
                                     <input type="radio" name="answer" id="" data-id="1">
+                                </td>
+                                <td>
+                                    <span class="dashicons dashicons-no"></span>
                                 </td>
                             </tr>
                             <tr>
@@ -40,6 +44,9 @@
                                 <td>
                                     <input type="radio" name="answer" id="" data-id="2">
                                 </td>
+                                 <td>
+                                    <span class="dashicons dashicons-no"></span>
+                                </td>
                             </tr>
                             <tr>
                                 <td>
@@ -48,10 +55,13 @@
                                 <td>
                                     <input type="radio" name="answer" id="" data-id="3">
                                 </td>
+                                 <td>
+                                    <span class="dashicons dashicons-no"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary">Add More</button>
+                    <button class="btn btn-primary float-right" id="mcq-add-more"> Add More</button>
                 </div>
             </div>
             <div class="modal-footer">

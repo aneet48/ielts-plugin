@@ -66,3 +66,7 @@ body {
 .ielts-test .borderless td, .borderless th {
     border: none;
 }
+
+.ielts-test .dashicons-no{
+  color: red;
+}
