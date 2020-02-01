@@ -1,6 +1,6 @@
 <?php
 $test_type = $_GET['type'];
-$back_url = menu_page_url($test_type . '-home', false)
+$back_url = menu_page_url($test_type . '-home', false);
 ?>
 
 <div class="container ielts-test">
@@ -41,42 +41,24 @@ $back_url = menu_page_url($test_type . '-home', false)
             </div>
         </div>
 
-
-        <div class="sections-block">
-            <div class="row">
-                <div class="col-md-9">dsfdsf</div>
-                <div class="col-md-3 options-block">
-                    <div class="card">
-                        <div class="card-header">
-                            Select Qustion Type
-                        </div>
-                        <div class="card-body">
-                           <!-- <button href="#" class="btn btn-secondary qus-type" data-type="mcq" >
-                               MCQ
-                           </button>
-                           <button href="#" class="btn btn-secondary qus-type" data-type="mcq-multi"" >
-                               MCQ(Multiple Answers)
-                           </button>
-                           <button href="#" class="btn btn-secondary qus-type" data-type="mcq-yesno"">
-                               Yes/No/Not Given
-                           </button>
-                           <button href="#" class="btn btn-secondary qus-type" data-type="mcq-input"">
-                              Student Input
-                           </button> -->
-                           <?php include('choices/mcq.php') ?>
-                           <?php include('choices/mcq-multi.php') ?>
-                           <?php include('choices/yesno.php') ?>
-                           <?php include('choices/user-input.php') ?>
-                        </div>
-                    </div>
-
-                </div>
+        <div class="sections-area">
+        <?php for ($i=1; $i <= 4; $i++) {
+                $_GET['section_id'] = $i;
+             ?>
+        
+          <div class="sections-block" data-section-id="<?php echo $i ?>">
+                <?php include('section-block.php') ?>
             </div>
+       <?php } ?>
+          
         </div>
+      
+        <!-- <div class="text-right">
+            <a href="#" class="btn btn-primary add-section">Add Section</a>
+        </div> -->
     </form>
 
 
 
-    
-</div>
 
+</div>

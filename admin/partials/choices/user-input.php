@@ -1,9 +1,10 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#InputModal">
+<button type="button" class="btn btn-primary qus-choice" data-qus-type="user" 
+>
     Student Input
 </button>
 
 <!-- Modal -->
-<div class="modal fade" id="InputModal" tabindex="-1" role="dialog" aria-labelledby="InputModalLabel"
+<!-- <div class="modal fade" id="InputModal" tabindex="-1" role="dialog" aria-labelledby="InputModalLabel"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -22,4 +23,4 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->

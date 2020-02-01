@@ -2,15 +2,56 @@
  * handleForms (hF) here
  */
 (function($) {
+  var clonedSection = "";
   var hF = {
     init: function() {
       hF.setup();
-      hF.mcqEvents();
+      hF.optionEvents();
+      hF.choiceEvents();
     },
 
     setup: function() {},
-    mcqEvents: function() {
-      console.log("reached");
+
+    choiceEvents: function() {
+      $("body").on("click", ".qus-choice", function(e) {
+        e.preventDefault();
+        let type = $(this).data("qus-type");
+        switch (type) {
+          case "user":
+            hF.handleUserInput($(this));
+            break;
+
+          default:
+            break;
+        }
+      });
+    },
+
+    handleUserInput: function(self) {
+      let section = self.parents(".sections-block").data("section-id");
+      let id = hF.getRandomId();
+      let editor_id = "test-form-editor-" + section;
+      let html =
+        '<input type="text" class="qus-input" data-index="' + id + '"  >';
+      tinymce.get(editor_id).insertContent(html);
+    },
+
+    getRandomId: function() {
+      return btoa(Math.random()).substring(0, 12);
+    },
+
+    // addNewBlock: function() {
+    //   clonedSection = $(".sections-block").clone();
+
+    //   $("body").on("click", ".add-section", function(e) {
+    //     e.preventDefault()
+    //     console.log('clone')
+    //     $(".sections-area .sections-block:last").after(clonedSection);
+    //   });
+    // },
+
+    optionEvents: function() {
+      // add more options
       $("#mcq-add-more").click(function(e) {
         e.preventDefault();
         let id = Math.random();
@@ -25,6 +66,7 @@
         $(".options-table tr:last").after(row);
       });
 
+      // delete option
       $("body").on("click", ".dashicons-no", function() {
         $(this)
           .parents("tr")
