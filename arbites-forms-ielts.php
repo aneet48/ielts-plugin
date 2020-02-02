@@ -68,7 +68,9 @@ function ielts_tests_pages_html()
 
 function listening_pages_html()
 {
-    if (is_test_page()) {
+    if ($_POST) {
+        saveTest($_POST);
+    } elseif (is_test_page()) {
         redirect_create_test_page();
     } else {
         include 'admin/partials/listening-page.php';
@@ -110,3 +112,6 @@ function redirect_create_test_page()
     }
 }
 
+function saveTest(){
+    print_r($_POST);
+}

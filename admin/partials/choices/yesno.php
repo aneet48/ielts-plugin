@@ -1,4 +1,5 @@
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#YesNoModal">
+<button type="button" class="btn btn-primary qus-choice" data-qus-type="yesno" >
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#YesNoModal"> -->
     Yes/No/Not Given
 </button>
 

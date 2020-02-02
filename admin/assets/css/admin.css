@@ -41,7 +41,7 @@ body {
 
 .test-block {
   background: #ffffff;
-  margin-top: 20px;
+  margin: 20px 0;
   padding: 10px;
   border-radius: 5px;
   border: 2px solid #9ea3a8;
@@ -70,4 +70,8 @@ body {
 
 .ielts-test .dashicons-no{
   color: red;
+}
+
+.ans-block{
+      margin: 10px 0;
 }

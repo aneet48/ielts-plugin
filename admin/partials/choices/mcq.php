@@ -13,60 +13,59 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="">Question(Add question below)</label>
-                    <input type="text" name="qus" class="form-control">
-                </div>
+                    <input class="input-ele" type="text" name="qus" class="form-control">
+                </div> -->
                 <div class="form-group">
                     <label for="">Options (Select answer from options)</label>
                     <table class="options-table table borderless">
                         <tbody>
                             <tr>
                                 <th>Option</th>
-                                <th>Answer</th>
                                 <th>Remove</th>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" name="option" data-id="1">
+                                    <input class="input-ele" type="text" name="option" data-id="1">
                                 </td>
-                                <td>
-                                    <input type="radio" name="answer" id="" data-id="1">
-                                </td>
+                                <!-- <td>
+                                    <input class="input-ele" type="radio" name="answer" id="" data-id="1">
+                                </td> -->
                                 <td>
                                     <span class="dashicons dashicons-no"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" name="option" data-id="2">
+                                    <input class="input-ele" type="text" name="option" data-id="2">
                                 </td>
-                                <td>
-                                    <input type="radio" name="answer" id="" data-id="2">
-                                </td>
+                                <!-- <td>
+                                    <input class="input-ele" type="radio" name="answer" id="" data-id="2">
+                                </td> -->
                                  <td>
                                     <span class="dashicons dashicons-no"></span>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="text" name="option" data-id="3">
+                                    <input class="input-ele" type="text" name="option" data-id="3">
                                 </td>
-                                <td>
-                                    <input type="radio" name="answer" id="" data-id="3">
-                                </td>
+                                <!-- <td>
+                                    <input class="input-ele" type="radio" name="answer" id="" data-id="3">
+                                </td> -->
                                  <td>
                                     <span class="dashicons dashicons-no"></span>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <button class="btn btn-primary float-right" id="mcq-add-more"> Add More</button>
+                    <button class="btn btn-primary float-right mcq-add-more" > Add More</button>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary qus-choice" data-qus-type="mcq" >Save</button>
             </div>
         </div>
     </div>
