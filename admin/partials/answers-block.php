@@ -1,3 +1,7 @@
+<?php
+$ans = isset($test_data) && isset($test_data['answers']) ? json_decode($test_data['answers'] ): null;
+$length = $ans && is_array($ans) ? count($ans) : 40
+?>
  <div class="answers-area">
      <div class="card w-100">
          <div class="card-header">
@@ -19,13 +23,13 @@
              <div class="row">
 
                  <?php
-                     for ($i=1; $i <= 40 ; $i++) { ?>
+                     for ($i=1; $i <= $length ; $i++) { ?>
                  <div class="col-md-4 ans-block">
 
                      <div class="row ">
                          <label for="" class="col-sm-2"><?php echo $i ?></label>
-                         <input type="text" name="ans[]" class="form-control col-sm-10">
-                     </div>
+                         <input type="text" name="ans[]" class="form-control col-sm-10" value="<?php echo isset($ans[$i-1]) ? $ans[$i-1]:'' ?>">
+                     </div> 
                  </div>
                  <?php }
                    ?>

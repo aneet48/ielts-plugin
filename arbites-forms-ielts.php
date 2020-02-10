@@ -26,9 +26,105 @@
  */
 
 define('ARBITES_FORMS_PLUGIN_PATH', plugin_dir_url(__FILE__));
-
+define('TESTS_TABLE', 'ar_tests');
+define('SECTIONS_TABLE', 'ar_ielts_sections');
+define('STUDENTS_TABLE', 'ar_ielts_student');
+include 'includes/db_functions.php';
 function arbites_forms_activation()
 {
+
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+    $table_name = $wpdb->prefix . 'ar_tests';
+    if ($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+
+        $sql = "CREATE TABLE $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            created_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+            time time DEFAULT '00:00:00' NOT NULL,
+            file_path text  NULL,
+            test_status text NOT NULL,
+            test_type text NOT NULL,
+            module_type text NOT NULL,
+            answers longtext  NULL ,
+            section_para_1 longtext  NULL ,
+            section_para_2 longtext  NULL ,
+            section_para_3 longtext  NULL ,
+            section_para_4 longtext  NULL ,
+            test_form_editor_1 longtext  NULL ,
+            test_form_editor_2 longtext  NULL ,
+            test_form_editor_3 longtext  NULL ,
+            test_form_editor_4 longtext  NULL ,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta($sql);
+    }
+
+    // $table_name = $wpdb->prefix . 'ar_ielts_sections';
+    // if ($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+
+    //     $sql = "CREATE TABLE $table_name (
+    //         id mediumint(9) NOT NULL AUTO_INCREMENT,
+    //         test_id mediumint(9) NOT NULL ,
+    //         answers longtext  NULL ,
+    //         section_para_1 longtext  NULL ,
+    //         section_para_2 longtext  NULL ,
+    //         section_para_3 longtext  NULL ,
+    //         section_para_4 longtext  NULL ,
+    //         test_form_editor_1 longtext  NULL ,
+    //         test_form_editor_2 longtext  NULL ,
+    //         test_form_editor_3 longtext  NULL ,
+    //         test_form_editor_4 longtext  NULL ,
+    //         created_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+
+    //         PRIMARY KEY  (id)
+    //     ) $charset_collate;";
+
+    //     require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    //     dbDelta($sql);
+    // }
+
+    $table_name = $wpdb->prefix . 'ar_ielts_student';
+    if ($wpdb->get_var("show tables like '$table_name'") != $table_name) {
+
+        $sql = "CREATE TABLE $table_name (
+            id mediumint(9) NOT NULL AUTO_INCREMENT,
+            test_id mediumint(9) NOT NULL ,
+            student_id mediumint(9) NOT NULL ,
+            student_response longtext  NULL ,
+            instrutor_id mediumint(9) NOT NULL ,
+            instrutor_response longtext  NULL ,
+
+            created_at datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+
+        require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+        dbDelta($sql);
+    }
+
+    // $tblname = 'ar_ielts_student';
+    // $wp_track_table = $table_prefix . "$tblname ";
+
+    // if ($wpdb->get_var("show tables like '$wp_track_table'") != $wp_track_table) {
+
+    //     $sql = "CREATE TABLE `" . $wp_track_table . "` ( ";
+    //     $sql .= "  `id`  int(11)   NOT NULL auto_increment, ";
+    //     $sql .= "  `test_id`  int(11)   NOT NULL, ";
+    //     $sql .= "  `student_id` int(11)   NOT NULL, ";
+    //     $sql .= "  `student_response`  longtext    NOT NULL, ";
+    //     $sql .= "  `instrutor_id`  int(11)    NULL, ";
+    //     $sql .= "  `instrutor_response`  longtext    NULL, ";
+
+    //     $sql .= "  PRIMARY KEY  (`id`) ";
+    //     $sql .= ") $charset_collate ; ";
+    //     require_once ABSPATH . '/wp-admin/includes/upgrade.php';
+    //     dbDelta($sql);
+    // }
+
 }
 function arbites_forms_deactivation()
 {
@@ -68,18 +164,39 @@ function ielts_tests_pages_html()
 
 function listening_pages_html()
 {
+    // redirect_edit_test_page(3);
+    global $wp;
+
     if ($_POST) {
-        saveTest($_POST);
-    } elseif (is_test_page()) {
+        $id = createTest();
+        redirect_edit_test_page($id);
+    } elseif (is_edit_test_page() && isset($_GET['id'])) {
+        redirect_edit_test_page($_GET['id']);
+    } elseif (is_create_test_page()) {
         redirect_create_test_page();
     } else {
+        // include 'includes/Tests_Table.php';
+        $tests = get_tests('listening');
+        // print_r($tests);
+
         include 'admin/partials/listening-page.php';
     }
+}
+function get_tests($type)
+{
+    $result = get_type_tests($type);
+    return $result;
+}
+
+function redirect_edit_test_page($id)
+{
+    $test_data = getTest($id);
+    include 'admin/partials/create-test.php';
 }
 
 function reading_pages_html()
 {
-    if (is_test_page()) {
+    if (is_create_test_page()) {
         redirect_create_test_page();
     } else {
         include 'admin/partials/reading-page.php';
@@ -89,7 +206,7 @@ function reading_pages_html()
 
 function writing_pages_html()
 {
-    if (is_test_page()) {
+    if (is_create_test_page()) {
         redirect_create_test_page();
     } else {
         include 'admin/partials/writing-page.php';
@@ -97,9 +214,17 @@ function writing_pages_html()
 
 }
 
-function is_test_page()
+function is_create_test_page()
 {
-    if (isset($_GET['test']) && $_GET['test']) {
+    if (isset($_GET['test']) && $_GET['test'] == 'create') {
+        return true;
+    }
+    return false;
+}
+
+function is_edit_test_page()
+{
+    if (isset($_GET['test']) && $_GET['test'] == 'edit') {
         return true;
     }
     return false;
@@ -112,6 +237,7 @@ function redirect_create_test_page()
     }
 }
 
-function saveTest(){
+function saveTest()
+{
     print_r($_POST);
 }

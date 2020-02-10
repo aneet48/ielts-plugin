@@ -48,34 +48,65 @@ body {
 }
 
 .ielts-test label {
-      font-weight: bold;
+  font-weight: bold;
 }
 
-.ielts-test .sections-block{
+.ielts-test .sections-block {
   margin: 30px 0;
 }
 
-.ielts-test .card{
+.ielts-test .card {
   padding: 0;
   max-width: none;
 }
 
-.ielts-test .sections-block .options-block button{
-      margin: 10px 0;
+.ielts-test .sections-block .options-block button {
+  margin: 10px 0;
 }
 
-.ielts-test .borderless td, .borderless th {
-    border: none;
+.ielts-test .borderless td,
+.borderless th {
+  border: none;
 }
 
-.ielts-test .dashicons-no{
+.ielts-test .dashicons-no {
   color: red;
 }
 
-.ans-block{
-      margin: 10px 0;
+.ans-block {
+  margin: 10px 0;
 }
 
-.section-title{
+.section-title {
   margin: 20px 15px;
+}
+
+.ielts-test .title {
+  text-transform: capitalize;
+}
+
+.ar-lists-table thead {
+  background: #14bdee;
+}
+
+.ar-lists-table {
+  background: #ffffff;
+}
+
+.ar-lists-table th {
+  text-transform: uppercase;
+}
+
+.ar-lists-table td {
+  text-transform: capitalize;
+}
+.btn-olive {
+  background: #b5cc18;
+  border: none;
+}
+
+.btn-orange {
+  background: #cf590c;
+  border: none;
+  color: #ffffff;
 }
