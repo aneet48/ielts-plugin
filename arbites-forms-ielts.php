@@ -175,10 +175,7 @@ function listening_pages_html()
     } elseif (is_create_test_page()) {
         redirect_create_test_page();
     } else {
-        // include 'includes/Tests_Table.php';
         $tests = get_tests('listening');
-        // print_r($tests);
-
         include 'admin/partials/listening-page.php';
     }
 }

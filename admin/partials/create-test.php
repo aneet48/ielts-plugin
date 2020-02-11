@@ -5,13 +5,14 @@ $test_data = isset($test_data) ? $test_data : '';
 
 $back_url = menu_page_url($test_type . '-home', false);
 $no_of_sections = $test_type == 'writing' ? 2 : 4;
-$home_url = menu_page_url('listening-home', false);
+$page_name = $test_type . '-home';
+$home_url = menu_page_url($page_name, false);
 $id = isset($_GET['id']) ? $_GET['id'] : '';
 $id = $test_data ? $test_data['id'] : $id;
 
 $edit_url = add_query_arg(array(
     'test' => 'edit',
-    'type' => 'listening',
+    'type' => $test_type,
     'id' => $id,
 ), $home_url);
 ?>
