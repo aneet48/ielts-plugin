@@ -32,10 +32,32 @@
                 <td><?php echo $test['test_status'] ?></td>
                 <td>
                     <a href="<?php echo $edit_url ?>" class="btn btn-success btn-olive">Edit</a>
-                    <a href="<?php echo  $delete ?>"  onclick="return confirm('Are you sure you want to delete this?');" class="btn btn-orange">Delete</a>
+                    <a href="<?php echo $delete ?>" onclick="return confirm('Are you sure you want to delete this?');"
+                        class="btn btn-orange">Delete</a>
                 </td>
             </tr>
             <?php }?>
         </tbody>
     </table>
 </div>
+
+<?php if ($total_tests > 10) {?>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <?php 
+        $count = 0 ;
+        for ($i = 1; $i <= $total_tests; $i=$i+10) {
+            $count++;
+    $page_name = $test['test_type'] . '-home';
+    $home_url = menu_page_url($page_name, false);
+    $next_page = add_query_arg(array(
+        'paged' => $count,
+    ), $home_url);
+
+    ?>
+        <li class="page-item"><a class="page-link" href="<?php echo $next_page ?>"><?php echo $count ?></a></li>
+        <?php }?>
+
+    </ul>
+</nav>
+<?php }?>

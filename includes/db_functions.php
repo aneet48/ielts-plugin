@@ -66,12 +66,12 @@ function createTest()
                 'test_form_editor_4' => $test_form_editor_4,
             ),
             array(
-                'id'=>$id
+                'id' => $id,
             )
         );
         $test_id = $id;
     }
-   
+
     return $test_id;
 }
 
@@ -92,10 +92,36 @@ function getInput($var)
     }
 }
 
-function get_type_tests($type){
+function get_type_tests($type)
+{
     global $wpdb;
-$tbl_name = $wpdb->prefix . TESTS_TABLE;
-$result = $wpdb->get_results('SELECT * FROM ' . $tbl_name . ' WHERE (test_type="' . $type . '")', ARRAY_A);
-return $result;
+    $tbl_name = $wpdb->prefix . TESTS_TABLE;
+    $posts_per_page = 10;
+    $start = 0;
+    $paged = isset($_GET['paged']) && $_GET['paged'] ? $_GET['paged'] : 1; // Current page number
+    $start = ($paged - 1) * $posts_per_page;
 
+    $result = $wpdb->get_results('SELECT * FROM ' . $tbl_name . ' WHERE (test_type="' . $type . '")  ORDER BY id DESC
+     LIMIT ' . $start . ', ' . $posts_per_page . '', ARRAY_A);
+    return $result;
+
+}
+
+function get_total_tests($type)
+{
+    global $wpdb;
+    $tbl_name = $wpdb->prefix . TESTS_TABLE;
+
+    $result = $wpdb->get_var('SELECT COUNT(*) FROM ' . $tbl_name . ' WHERE (test_type="' . $type . '")');
+    return $result;
+}
+
+function delete_test()
+{
+    if (isset($_GET['test']) && $_GET['test'] == 'delete' && isset($_GET['id']) && $_GET['id']) {
+        global $wpdb;
+        $tbl_name = $wpdb->prefix . TESTS_TABLE;
+        $wpdb->delete($tbl_name, array('id' => $_GET['id']));
+
+    }
 }

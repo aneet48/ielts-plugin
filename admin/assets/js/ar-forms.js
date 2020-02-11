@@ -110,6 +110,9 @@
     setChoice: function(self, html) {
       let section = self.parents(".sections-block").data("section-id");
       let editor_id = "test-form-editor-" + section;
+      console.log(editor_id);
+      console.log(self);
+
       tinymce.get(editor_id).insertContent(html);
     },
 

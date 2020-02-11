@@ -17,5 +17,7 @@ $new_test_url = add_query_arg(array(
     </div>
   </div>
 
-  <div class="modules"></div>
+<div class="tests-list">
+ <?php include 'tests_lists.php'?>
+  </div>
 </div>

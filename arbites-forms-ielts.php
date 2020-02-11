@@ -164,9 +164,6 @@ function ielts_tests_pages_html()
 
 function listening_pages_html()
 {
-    // redirect_edit_test_page(3);
-    global $wp;
-
     if ($_POST) {
         $id = createTest();
         redirect_edit_test_page($id);
@@ -175,6 +172,11 @@ function listening_pages_html()
     } elseif (is_create_test_page()) {
         redirect_create_test_page();
     } else {
+        if (is_delete_test_page()) {
+            delete_test();
+        }
+
+        $total_tests = get_total_tests('listening');
         $tests = get_tests('listening');
         include 'admin/partials/listening-page.php';
     }
@@ -193,9 +195,20 @@ function redirect_edit_test_page($id)
 
 function reading_pages_html()
 {
-    if (is_create_test_page()) {
+    if ($_POST) {
+        $id = createTest();
+        redirect_edit_test_page($id);
+    } elseif (is_edit_test_page() && isset($_GET['id'])) {
+        redirect_edit_test_page($_GET['id']);
+    } elseif (is_create_test_page()) {
         redirect_create_test_page();
     } else {
+        if (is_delete_test_page()) {
+            delete_test();
+        }
+
+        $total_tests = get_total_tests('reading');
+        $tests = get_tests('reading');
         include 'admin/partials/reading-page.php';
     }
 
@@ -203,9 +216,19 @@ function reading_pages_html()
 
 function writing_pages_html()
 {
-    if (is_create_test_page()) {
+    if ($_POST) {
+        $id = createTest();
+        redirect_edit_test_page($id);
+    } elseif (is_edit_test_page() && isset($_GET['id'])) {
+        redirect_edit_test_page($_GET['id']);
+    } elseif (is_create_test_page()) {
         redirect_create_test_page();
     } else {
+        if (is_delete_test_page()) {
+            delete_test();
+        }
+        $total_tests = get_total_tests('writing');
+        $tests = get_tests('writing');
         include 'admin/partials/writing-page.php';
     }
 
@@ -227,14 +250,17 @@ function is_edit_test_page()
     return false;
 }
 
+function is_delete_test_page()
+{
+    if (isset($_GET['test']) && $_GET['test'] == 'delete') {
+        return true;
+    }
+    return false;
+}
+
 function redirect_create_test_page()
 {
     if ($_GET['test'] == 'create') {
         include 'admin/partials/create-test.php';
     }
-}
-
-function saveTest()
-{
-    print_r($_POST);
 }
