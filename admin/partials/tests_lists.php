@@ -37,6 +37,10 @@
                 </td>
             </tr>
             <?php }?>
+
+            <?php if(!$tests){
+                echo '<td colspan="6" class="text-center">Please add a test</td>';
+            } ?>
         </tbody>
     </table>
 </div>

@@ -2,6 +2,16 @@
 $test_type = $_GET['type'];
 $title = $_GET['test'];
 $test_data = isset($test_data) ? $test_data : '';
+if ($test_type == 'listening') {
+    $args = array
+        (
+        'post_type' => 'attachment',
+        'post_mime_type' => 'audio',
+        'numberposts' => -1,
+    );
+    $audiofiles = get_posts($args);
+
+}
 
 $back_url = menu_page_url($test_type . '-home', false);
 $no_of_sections = $test_type == 'writing' ? 2 : 4;
@@ -38,7 +48,18 @@ $edit_url = add_query_arg(array(
             <?php if ($test_type == 'listening'): ?>
             <div class="form-group">
                 <label for="file">Audio file</label>
-                <input accept="audio/*" required class="form-control" type="file" name="audio-file" id="audio-file"  />
+                <select name="audio-file" id="audio-file" class="form-control">
+                <option >Select audio</option>
+                <?php
+foreach ($audiofiles as $file) {
+    $url = wp_get_attachment_url($file->ID);
+    $selected = $test_data && $test_data['file_path'] && $test_data['file_path'] == $url ? 'selected' : '';
+    echo '<option value=' . $url . ' ' . $selected . '>' . $file->post_title . '</option>';
+
+}
+?>
+                </select>
+                <!-- <input accept="audio/*" required class="form-control" type="file" name="audio-file" id="audio-file"  /> -->
             </div>
             <?php endif;?>
             <div class=" d-flex justify-content-between">
